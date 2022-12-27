@@ -15,7 +15,7 @@ type Props = {
 const Navbar = ({ selectedPage, setSelectedPage }: Props) => {
   const flexBtw = "flex items-center justify-between";
   const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
-  const { isOpenModal, toggleModal } = useModal();
+  const { isModalOpen, toggleModal } = useModal();
   
   return (
     <nav>
@@ -76,6 +76,47 @@ const Navbar = ({ selectedPage, setSelectedPage }: Props) => {
               </div>
             </div>
         </div>
+        {/* MOBILE MENU MODAL */}
+        {
+          isModalOpen && !isAboveMediumScreens ? 
+          (
+            <div className="fixed right-0 bottom-0 h-screen z-40 w-72 bg-primary-100 drop-shadow-xl">
+              <div className='flex flex-col items-center gap-5 p-12'>
+                <button 
+                    className='p-2 self-end'
+                    onClick={toggleModal}
+                  >
+                    <XMarkIcon 
+                      className='h-6 w-6 text-black'
+                    />
+                </button>
+                <div className={`flex flex-col gap-10 text-2xl`}>
+                  <Link 
+                    page='Home'
+                    selectedPage={selectedPage}
+                    setSelectedPage={setSelectedPage}
+                  />
+                  <Link 
+                    page='Benefits'
+                    selectedPage={selectedPage}
+                    setSelectedPage={setSelectedPage}
+                  />
+                  <Link 
+                    page='Our Classes'
+                    selectedPage={selectedPage}
+                    setSelectedPage={setSelectedPage}
+                  />
+                  <Link 
+                    page='Contact Us'
+                    selectedPage={selectedPage}
+                    setSelectedPage={setSelectedPage}
+                  />
+                </div>
+              </div>
+            </div>
+          ) : 
+          null
+        }
     </nav>
   )
 }
