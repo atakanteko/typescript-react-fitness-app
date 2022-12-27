@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Logo from "@/assets/Logo.png";
 import { SelectedPage } from '@/shared/types';
@@ -16,11 +16,25 @@ const Navbar = ({ selectedPage, setSelectedPage }: Props) => {
   const flexBtw = "flex items-center justify-between";
   const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
   const { isModalOpen, toggleModal } = useModal();
-  
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
+
+  useEffect(() => {
+    function onScroll() {
+      if(window.scrollY > 0) {
+        setIsScrolled(true);
+        setSelectedPage(SelectedPage.Home);
+      } else {
+        setIsScrolled(false);
+      }
+    }
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [])
+
   return (
     <nav>
         <div 
-          className={`${flexBtw} fixed top-0 z-30 w-full py-6`}
+          className={`${isScrolled ? "bg-primary-100 drop-shadow": ""} ${flexBtw} fixed top-0 z-30 w-full py-6`}
         >
             <div className={`${flexBtw} mx-auto w-5/6`}>
               <div className={`${flexBtw} w-full gap-16`}>
