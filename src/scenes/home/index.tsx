@@ -6,9 +6,9 @@ import HomePageText from '@/assets/HomePageText.png';
 import SponsorRedBull from '@/assets/SponsorRedBull.png';
 import SponsorForbes from '@/assets/SponsorForbes.png';
 import SponserFortune from '@/assets/SponsorFortune.png';
-
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import useMediaQuery from '@/hooks/useMediaQuery';
+import { motion } from 'framer-motion';
 
 type Props = {
     setSelectedPage: (value: SelectedPage) => void;
@@ -29,7 +29,17 @@ const Home: React.FC<Props> = (props) => {
             {/* MAIN HEADER */}
             <div className='z-10 mt-32 md:basis-3/5'>
                 {/* HEADINGS */}
-                <div className='md:-mt-20'>
+                <motion.div 
+                  className='md:-mt-20'
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.5 }}
+                  transition={{ duration: 0.5 }}
+                  variants ={{
+                    hidden: { opacity: 0, x: -50 },
+                    visible: { opacity: 1, x: 0 }
+                  }}
+                >
                     <div className='relative'>
                         <div className='before:absolute before:-top-20 before:-left-20 before:-z-10 md:before:content-evolvetext'>
                             <img 
@@ -41,9 +51,19 @@ const Home: React.FC<Props> = (props) => {
                     <p className='mt-8 text-sm md:text-lg'>
                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis libero reprehenderit unde qui nulla, odit voluptatem. Eaque neque aspernatur, fugiat corrupti ipsum possimus voluptatibus explicabo debitis consequuntur tempora repellendus non!
                     </p>
-                </div>
+                </motion.div>
                 {/* ACTION BUTTONS */}
-                <div className='mt-8 flex items-center gap-8'>
+                <motion.div 
+                  className='mt-8 flex items-center gap-8'
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.5 }}
+                  transition={{ delay:0.2, duration: 0.5 }}
+                  variants ={{
+                    hidden: { opacity: 0, x: -50 },
+                    visible: { opacity: 1, x: 0 }
+                  }}
+                >
                     <ActionButton setSelectedPage={setSelectedPage}>
                         Join Now
                     </ActionButton>
@@ -54,7 +74,7 @@ const Home: React.FC<Props> = (props) => {
                     >
                         <p>Learn More</p>
                     </AnchorLink>
-                </div>
+                </motion.div>
             </div>
 
             {/* IMAGE */}
